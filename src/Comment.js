@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
 
 class Comment extends Component {
     static propTypes = {
@@ -9,15 +8,13 @@ class Comment extends Component {
         index: PropTypes.number
     }
 
-    constructor() {
-        super();
-        this.state = {
-            timeString: ""
-        };
+    constructor () {
+        super()
+        this.state = { timeString: '' }
     }
 
-    componentWillMount() {
-        this._updateTimeString();
+    componentWillMount () {
+        this._updateTimeString()
         this._timer = setInterval(
             this._updateTimeString.bind(this),
             5000
@@ -28,16 +25,17 @@ class Comment extends Component {
         clearInterval(this._timer)
     }
 
-    _updateTimeString() {
-        const comment = this.props.comment;
-        const duration = (+Date.now() - comment.createdTime) / 1000;
+    _updateTimeString () {
+        const comment = this.props.comment
+        const duration = (+Date.now() - comment.createdTime) / 1000
         this.setState({
-            timeString: duration > 60 ? `${Math.round(duration / 60)} 分钟前`
+            timeString: duration > 60
+                ? `${Math.round(duration / 60)} 分钟前`
                 : `${Math.round(Math.max(duration, 1))} 秒前`
         })
     }
 
-    _getProcessedContent(content){
+    _getProcessedContent (content) {
         return content
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
@@ -47,26 +45,35 @@ class Comment extends Component {
             .replace(/`([\S\s]+?)`/g, '<code>$1</code>')
     }
 
-    handleDeleteComment(){
+    handleDeleteComment () {
         if (this.props.onDeleteComment) {
-            this.props.onDeleteComment(this.props.index);
+            this.props.onDeleteComment(this.props.index)
         }
     }
 
-    render() {
+    render () {
+        const comment = this.props.comment
         return (
-            <div className="comment">
-                <div className="comment-user">
-                    <span>{this.props.comment.username}</span>
+            <div className='comment'>
+                <div className='comment-user'>
+          <span className='comment-username'>
+            {comment.username}
+          </span>：
                 </div>
                 <p dangerouslySetInnerHTML={{
-                    __html: this._getProcessedContent(this.props.comment.content)
+                    __html: this._getProcessedContent(comment.content)
                 }} />
-                <span className='comment-createdtime'>{this.state.timeString}</span>
-                <span className='comment-delete' onClick={this.handleDeleteComment.bind(this)}>删除</span>
+                <span className='comment-createdtime'>
+          {this.state.timeString}
+        </span>
+                <span
+                    onClick={this.handleDeleteComment.bind(this)}
+                    className='comment-delete'>
+          删除
+        </span>
             </div>
         )
     }
 }
 
-export default Comment;
+export default Comment
