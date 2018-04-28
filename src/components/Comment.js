@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
 class Comment extends Component {
@@ -8,12 +8,12 @@ class Comment extends Component {
         index: PropTypes.number
     }
 
-    constructor () {
+    constructor() {
         super()
-        this.state = { timeString: '' }
+        this.state = {timeString: ''}
     }
 
-    componentWillMount () {
+    componentWillMount() {
         this._updateTimeString()
         this._timer = setInterval(
             this._updateTimeString.bind(this),
@@ -21,11 +21,11 @@ class Comment extends Component {
         )
     }
 
-    componentWillUnmount () {
+    componentWillUnmount() {
         clearInterval(this._timer)
     }
 
-    _updateTimeString () {
+    _updateTimeString() {
         const comment = this.props.comment
         const duration = (+Date.now() - comment.createdTime) / 1000
         this.setState({
@@ -35,7 +35,7 @@ class Comment extends Component {
         })
     }
 
-    _getProcessedContent (content) {
+    _getProcessedContent(content) {
         return content
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
@@ -45,13 +45,13 @@ class Comment extends Component {
             .replace(/`([\S\s]+?)`/g, '<code>$1</code>')
     }
 
-    handleDeleteComment () {
+    handleDeleteComment() {
         if (this.props.onDeleteComment) {
             this.props.onDeleteComment(this.props.index)
         }
     }
 
-    render () {
+    render() {
         const comment = this.props.comment
         return (
             <div className='comment'>
@@ -62,7 +62,7 @@ class Comment extends Component {
                 </div>
                 <p dangerouslySetInnerHTML={{
                     __html: this._getProcessedContent(comment.content)
-                }} />
+                }}/>
                 <span className='comment-createdtime'>
           {this.state.timeString}
         </span>
