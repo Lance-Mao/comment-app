@@ -7,7 +7,7 @@ import commentsReducer from './reducers/comments'
 import './index.css'
 
 
-const store = createStore(commentsReducer)
+const store = createStore(commentsReducer);
 
 ReactDOM.render(
     <Provider store={store}>

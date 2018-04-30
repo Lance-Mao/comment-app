@@ -22,7 +22,7 @@ export default function (state, action) {
                     ...state.comments.slice(0, action.commentIndex),
                     ...state.comments.slice(action.commentIndex + 1)
                 ]
-            }
+            };
         default:
             return state;
     }

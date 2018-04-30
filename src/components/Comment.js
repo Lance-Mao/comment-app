@@ -6,12 +6,13 @@ class Comment extends Component {
         comment: PropTypes.object.isRequired,
         onDeleteComment: PropTypes.func,
         index: PropTypes.number
-    }
+    };
 
     constructor() {
         super()
         this.state = {timeString: ''}
     }
+
 
     componentWillMount() {
         this._updateTimeString()
